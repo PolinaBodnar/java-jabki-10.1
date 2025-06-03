@@ -26,7 +26,8 @@ public class Main {
         System.out.println("\nСодержит 'java': " + hasJava);
 
         // 3. Удаление элемента
-        boolean removed = words.removeIf(s -> s != null && s.trim().equalsIgnoreCase("python"));
+        boolean removed = words.removeIf(s -> { return s != null && s.trim().equalsIgnoreCase("python");
+        });
         System.out.println("Удалено 'python': " + removed);
 
         System.out.println("После удаления:");
@@ -79,14 +80,20 @@ public class Main {
 
     // 1.Анаграммы
     public static boolean areAnagrams(String a, String b) {
-        if (a == null || b == null || a.length() != b.length()) return false;
+        if (a == null || b == null || a.length() != b.length()) {
+            return false;
+        }
         Map<Character, Integer> count = new HashMap<>();
         for (char c : a.toCharArray()) count.put(c, count.getOrDefault(c, 0) + 1);
         for (char c : b.toCharArray()) {
-            if (!count.containsKey(c)) return false;
-            count.put(c, count.get(c) - 1);
-            if (count.get(c) == 0) count.remove(c);
+            if (!count.containsKey(c)) {
+                return false;
+            }
+        count.put(c, count.get(c) - 1);
+        if (count.get(c) == 0) {
+            count.remove(c);
         }
+    }
         return count.isEmpty();
     }
 
@@ -94,7 +101,9 @@ public class Main {
     public static boolean hasDuplicates(List<Integer> list) {
         Set<Integer> seen = new HashSet<>();
         for (Integer n : list) {
-            if (!seen.add(n)) return true;
+            if (!seen.add(n)) {
+                return true;
+            }
         }
         return false;
     }
@@ -114,7 +123,9 @@ public class Main {
 
     // 4. Словарь синонимов
     public static void addSynonym(Map<String, Set<String>> dict, String word, String synonym) {
-        if (dict == null || word == null || synonym == null) return;
+        if (dict == null || word == null || synonym == null) {
+            return;
+        }
         dict.computeIfAbsent(word.trim(), k -> new HashSet<>()).add(synonym.trim());
     }
 }
