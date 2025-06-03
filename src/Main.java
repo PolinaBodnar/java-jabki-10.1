@@ -16,8 +16,13 @@ public class Main {
         }
 
         // 2. Проверка на наличие элемента
-        boolean hasJava = words.stream()
-                .anyMatch(s -> s != null && s.trim().equalsIgnoreCase("java"));
+        boolean hasJava = false;
+        for (String s : words) {
+            if (s != null && s.trim().equalsIgnoreCase("java")) {
+                hasJava = true;
+                break;
+            }
+        }
         System.out.println("\nСодержит 'java': " + hasJava);
 
         // 3. Удаление элемента
@@ -33,8 +38,9 @@ public class Main {
         List<String> list = Arrays.asList("Java", "java", "Python", "C++", "Python", "GO");
         Set<String> unique = new HashSet<>();
         for (String s : list) {
-            if (s != null) unique.add(s.trim().toLowerCase());
+            if (s != null) { unique.add(s.trim().toLowerCase());
         }
+    }
         System.out.println("\nУникальных слов: " + unique.size());
 
         // HashMap
@@ -54,7 +60,10 @@ public class Main {
         System.out.println("\nОценка по Math: " + grades.get("Math"));
 
         // 3. Изменение значения
-        grades.put("English", 5);
+        if (grades.containsKey("English")) {
+            grades.put("English", 5);
+        }
+
         System.out.println("Новая оценка по English: " + grades.get("English"));
 
         // 4. Проверка наличия ключа
