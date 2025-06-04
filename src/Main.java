@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // 1.Создание множества
+        // 1. Создание множества
         Set<String> words = new HashSet<>();
         words.add("Java");
         words.add("Python");
@@ -26,7 +26,8 @@ public class Main {
         System.out.println("\nСодержит 'java': " + hasJava);
 
         // 3. Удаление элемента
-        boolean removed = words.removeIf(s -> { return s != null && s.trim().equalsIgnoreCase("python");
+        boolean removed = words.removeIf(s -> {
+            return s != null && s.trim().equalsIgnoreCase("python");
         });
         System.out.println("Удалено 'python': " + removed);
 
@@ -39,9 +40,10 @@ public class Main {
         List<String> list = Arrays.asList("Java", "java", "Python", "C++", "Python", "GO");
         Set<String> unique = new HashSet<>();
         for (String s : list) {
-            if (s != null) { unique.add(s.trim().toLowerCase());
+            if (s != null) {
+                unique.add(s.trim().toLowerCase());
+            }
         }
-    }
         System.out.println("\nУникальных слов: " + unique.size());
 
         // HashMap
@@ -61,10 +63,7 @@ public class Main {
         System.out.println("\nОценка по Math: " + grades.get("Math"));
 
         // 3. Изменение значения
-        if (grades.containsKey("English")) {
-            grades.put("English", 5);
-        }
-
+        setEnglishGradeTo5(grades);
         System.out.println("Новая оценка по English: " + grades.get("English"));
 
         // 4. Проверка наличия ключа
@@ -78,26 +77,35 @@ public class Main {
         }
     }
 
-    // 1.Анаграммы
+    public static void setEnglishGradeTo5(Map<String, Integer> map) {
+        if (map == null) {
+            return;
+        }
+        map.replace("English", 5);
+    }
+
+    // 1. Анаграммы
     public static boolean areAnagrams(String a, String b) {
         if (a == null || b == null || a.length() != b.length()) {
             return false;
         }
         Map<Character, Integer> count = new HashMap<>();
-        for (char c : a.toCharArray()) count.put(c, count.getOrDefault(c, 0) + 1);
+        for (char c : a.toCharArray()) {
+            count.put(c, count.getOrDefault(c, 0) + 1);
+        }
         for (char c : b.toCharArray()) {
             if (!count.containsKey(c)) {
                 return false;
             }
-        count.put(c, count.get(c) - 1);
-        if (count.get(c) == 0) {
-            count.remove(c);
+            count.put(c, count.get(c) - 1);
+            if (count.get(c) == 0) {
+                count.remove(c);
+            }
         }
-    }
         return count.isEmpty();
     }
 
-    // 2.Поиск дубликатов с помощью Set
+    // 2. Поиск дубликатов с помощью Set
     public static boolean hasDuplicates(List<Integer> list) {
         Set<Integer> seen = new HashSet<>();
         for (Integer n : list) {
@@ -108,7 +116,7 @@ public class Main {
         return false;
     }
 
-    // 3.Рейтинг студентов
+    // 3. Рейтинг студентов
     public static String bestStudent(Map<String, Integer> scores) {
         String best = null;
         int max = Integer.MIN_VALUE;
